@@ -86,6 +86,7 @@ int main(int argc, char** argv) {
     RPB7Rbits.RPB7R = 0b0101; //enable OC1 onto RPB7
     OC1CONbits.ON = 1;        //enable
 
+
     // set up analog input
     AD1CON3bits.ADCS = 3; //clock x8?
     AD1CHSbits.CH0SA = 3; //select AN3 for ch0
