@@ -335,6 +335,8 @@ UsedLibrary="C:/Users/John/Documents/GitHub/SparkFun-Eagle-Libraries/SparkFun-Ae
 UsedLibrary="C:/Users/John/Documents/GitHub/SparkFun-Eagle-Libraries/SparkFun-DigitalIC.lbr"
 UsedLibrary="C:/Users/John/Documents/GitHub/SparkFun-Eagle-Libraries/SparkFun-LED.lbr"
 UsedLibrary="C:/Users/John/Documents/GitHub/SparkFun-Eagle-Libraries/SparkFun-Resistors.lbr"
+UsedLibrary="C:/Users/John/Documents/GitHub/433_jnt606/Eagle/John 433 lib/john433.lbr"
+UsedLibrary="C:/Users/John/Documents/GitHub/ME433_2015/ME433.lbr"
 
 [Win_1]
 Type="Control Panel"
