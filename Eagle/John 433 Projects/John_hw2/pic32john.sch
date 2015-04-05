@@ -8,20 +8,20 @@
 </settings>
 <grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
 <layers>
-<layer number="1" name="Top" color="4" fill="1" visible="yes" active="no"/>
-<layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="no"/>
-<layer number="17" name="Pads" color="2" fill="1" visible="yes" active="no"/>
-<layer number="18" name="Vias" color="2" fill="1" visible="yes" active="no"/>
-<layer number="19" name="Unrouted" color="6" fill="1" visible="yes" active="no"/>
-<layer number="20" name="Dimension" color="15" fill="1" visible="yes" active="no"/>
-<layer number="21" name="tPlace" color="7" fill="1" visible="yes" active="no"/>
-<layer number="22" name="bPlace" color="7" fill="1" visible="yes" active="no"/>
-<layer number="23" name="tOrigins" color="15" fill="1" visible="yes" active="no"/>
-<layer number="24" name="bOrigins" color="15" fill="1" visible="yes" active="no"/>
-<layer number="25" name="tNames" color="7" fill="1" visible="yes" active="no"/>
-<layer number="26" name="bNames" color="7" fill="1" visible="yes" active="no"/>
-<layer number="27" name="tValues" color="7" fill="1" visible="yes" active="no"/>
-<layer number="28" name="bValues" color="7" fill="1" visible="yes" active="no"/>
+<layer number="1" name="Top" color="4" fill="1" visible="no" active="no"/>
+<layer number="16" name="Bottom" color="1" fill="1" visible="no" active="no"/>
+<layer number="17" name="Pads" color="2" fill="1" visible="no" active="no"/>
+<layer number="18" name="Vias" color="2" fill="1" visible="no" active="no"/>
+<layer number="19" name="Unrouted" color="6" fill="1" visible="no" active="no"/>
+<layer number="20" name="Dimension" color="15" fill="1" visible="no" active="no"/>
+<layer number="21" name="tPlace" color="7" fill="1" visible="no" active="no"/>
+<layer number="22" name="bPlace" color="7" fill="1" visible="no" active="no"/>
+<layer number="23" name="tOrigins" color="15" fill="1" visible="no" active="no"/>
+<layer number="24" name="bOrigins" color="15" fill="1" visible="no" active="no"/>
+<layer number="25" name="tNames" color="7" fill="1" visible="no" active="no"/>
+<layer number="26" name="bNames" color="7" fill="1" visible="no" active="no"/>
+<layer number="27" name="tValues" color="7" fill="1" visible="no" active="no"/>
+<layer number="28" name="bValues" color="7" fill="1" visible="no" active="no"/>
 <layer number="29" name="tStop" color="7" fill="3" visible="no" active="no"/>
 <layer number="30" name="bStop" color="7" fill="6" visible="no" active="no"/>
 <layer number="31" name="tCream" color="7" fill="4" visible="no" active="no"/>
@@ -30,8 +30,8 @@
 <layer number="34" name="bFinish" color="6" fill="6" visible="no" active="no"/>
 <layer number="35" name="tGlue" color="7" fill="4" visible="no" active="no"/>
 <layer number="36" name="bGlue" color="7" fill="5" visible="no" active="no"/>
-<layer number="37" name="tTest" color="7" fill="1" visible="yes" active="no"/>
-<layer number="38" name="bTest" color="7" fill="1" visible="yes" active="no"/>
+<layer number="37" name="tTest" color="7" fill="1" visible="no" active="no"/>
+<layer number="38" name="bTest" color="7" fill="1" visible="no" active="no"/>
 <layer number="39" name="tKeepout" color="4" fill="11" visible="no" active="no"/>
 <layer number="40" name="bKeepout" color="1" fill="11" visible="no" active="no"/>
 <layer number="41" name="tRestrict" color="4" fill="10" visible="no" active="no"/>
@@ -39,19 +39,19 @@
 <layer number="43" name="vRestrict" color="2" fill="10" visible="no" active="no"/>
 <layer number="44" name="Drills" color="7" fill="1" visible="no" active="no"/>
 <layer number="45" name="Holes" color="7" fill="1" visible="no" active="no"/>
-<layer number="46" name="Milling" color="3" fill="1" visible="yes" active="no"/>
-<layer number="47" name="Measures" color="7" fill="1" visible="yes" active="no"/>
-<layer number="48" name="Document" color="7" fill="1" visible="yes" active="no"/>
-<layer number="49" name="Reference" color="7" fill="1" visible="yes" active="no"/>
-<layer number="50" name="dxf" color="7" fill="1" visible="yes" active="no"/>
-<layer number="51" name="tDocu" color="7" fill="1" visible="yes" active="no"/>
-<layer number="52" name="bDocu" color="7" fill="1" visible="yes" active="no"/>
-<layer number="53" name="tGND_GNDA" color="7" fill="9" visible="yes" active="no"/>
-<layer number="54" name="bGND_GNDA" color="1" fill="9" visible="yes" active="no"/>
-<layer number="56" name="wert" color="7" fill="1" visible="yes" active="no"/>
-<layer number="57" name="tCAD" color="7" fill="1" visible="yes" active="no"/>
-<layer number="59" name="tCarbon" color="7" fill="1" visible="yes" active="no"/>
-<layer number="60" name="bCarbon" color="7" fill="1" visible="yes" active="no"/>
+<layer number="46" name="Milling" color="3" fill="1" visible="no" active="no"/>
+<layer number="47" name="Measures" color="7" fill="1" visible="no" active="no"/>
+<layer number="48" name="Document" color="7" fill="1" visible="no" active="no"/>
+<layer number="49" name="Reference" color="7" fill="1" visible="no" active="no"/>
+<layer number="50" name="dxf" color="7" fill="1" visible="no" active="no"/>
+<layer number="51" name="tDocu" color="7" fill="1" visible="no" active="no"/>
+<layer number="52" name="bDocu" color="7" fill="1" visible="no" active="no"/>
+<layer number="53" name="tGND_GNDA" color="7" fill="9" visible="no" active="no"/>
+<layer number="54" name="bGND_GNDA" color="1" fill="9" visible="no" active="no"/>
+<layer number="56" name="wert" color="7" fill="1" visible="no" active="no"/>
+<layer number="57" name="tCAD" color="7" fill="1" visible="no" active="no"/>
+<layer number="59" name="tCarbon" color="7" fill="1" visible="no" active="no"/>
+<layer number="60" name="bCarbon" color="7" fill="1" visible="no" active="no"/>
 <layer number="90" name="Modules" color="5" fill="1" visible="yes" active="yes"/>
 <layer number="91" name="Nets" color="2" fill="1" visible="yes" active="yes"/>
 <layer number="92" name="Busses" color="1" fill="1" visible="yes" active="yes"/>
@@ -2683,23 +2683,23 @@ Standard 4-pin 0.1" header. Use with straight break away headers (SKU : PRT-0011
 <part name="C7" library="SparkFun-Capacitors" deviceset="CAP_POL" device="PTH2" value="1uF"/>
 <part name="C9" library="john433" deviceset="CAP" device="PTH" value="0.1uF"/>
 <part name="C10" library="john433" deviceset="CAP" device="PTH" value="0.1uF"/>
-<part name="HD$1" library="SparkFun-Connectors" deviceset="M05" device="PTH" value="PIC_KIT"/>
+<part name="HD$1" library="SparkFun-Connectors" deviceset="M05" device="PTH" value="PICkit3"/>
 <part name="HD$4" library="SparkFun-Connectors" deviceset="M04" device="PTH" value="IO_LT_BOT"/>
 <part name="HD$3" library="SparkFun-Connectors" deviceset="M04" device="PTH" value="IO_LT_BOT"/>
 <part name="HD$2" library="SparkFun-Connectors" deviceset="M04" device="PTH" value="IO_LT_BOT"/>
 <part name="HD$6" library="SparkFun-Connectors" deviceset="M04" device="PTH" value="IO_LT_BOT"/>
 <part name="HD$5" library="SparkFun-Connectors" deviceset="M04" device="PTH" value="IO_LT_BOT"/>
-<part name="USER" library="john433" deviceset="BTN_P8072" device="" value="USER"/>
+<part name="USER" library="john433" deviceset="BTN_P8072" device="" value="USR"/>
 <part name="GND5" library="john433" deviceset="GND" device=""/>
 <part name="P+3" library="john433" deviceset="3.3V" device=""/>
 <part name="R3" library="john433" deviceset="RESISTOR" device="PTH-1/4W" value="10k"/>
-<part name="RESET" library="john433" deviceset="BTN_P8072" device="" value="USER"/>
+<part name="RST" library="john433" deviceset="BTN_P8072" device="" value="RST"/>
 <part name="GND6" library="john433" deviceset="GND" device=""/>
 <part name="P+4" library="john433" deviceset="3.3V" device=""/>
-<part name="LED2" library="john433" deviceset="LED" device="3MM"/>
+<part name="LED2" library="john433" deviceset="LED" device="3MM" value="L1"/>
 <part name="R$4" library="john433" deviceset="RESISTOR" device="PTH-1/4W" value="330"/>
 <part name="GND7" library="john433" deviceset="GND" device=""/>
-<part name="LED3" library="john433" deviceset="LED" device="3MM"/>
+<part name="LED3" library="john433" deviceset="LED" device="3MM" value="L2"/>
 <part name="R$5" library="john433" deviceset="RESISTOR" device="PTH-1/4W" value="330"/>
 <part name="GND8" library="john433" deviceset="GND" device=""/>
 </parts>
@@ -2740,7 +2740,7 @@ Standard 4-pin 0.1" header. Use with straight break away headers (SKU : PRT-0011
 <instance part="GND5" gate="1" x="53.34" y="71.12"/>
 <instance part="P+3" gate="G$1" x="53.34" y="96.52"/>
 <instance part="R3" gate="G$1" x="27.94" y="91.44" rot="R90"/>
-<instance part="RESET" gate="G$1" x="30.48" y="76.2" rot="R90"/>
+<instance part="RST" gate="G$1" x="30.48" y="76.2" rot="R90"/>
 <instance part="GND6" gate="1" x="27.94" y="71.12"/>
 <instance part="P+4" gate="G$1" x="27.94" y="96.52"/>
 <instance part="LED2" gate="G$1" x="81.28" y="78.74"/>
@@ -2830,7 +2830,7 @@ Standard 4-pin 0.1" header. Use with straight break away headers (SKU : PRT-0011
 <pinref part="GND5" gate="1" pin="GND"/>
 </segment>
 <segment>
-<pinref part="RESET" gate="G$1" pin="P$1"/>
+<pinref part="RST" gate="G$1" pin="P$1"/>
 <pinref part="GND6" gate="1" pin="GND"/>
 </segment>
 <segment>
@@ -2990,7 +2990,7 @@ Standard 4-pin 0.1" header. Use with straight break away headers (SKU : PRT-0011
 </segment>
 <segment>
 <pinref part="R3" gate="G$1" pin="1"/>
-<pinref part="RESET" gate="G$1" pin="P$2"/>
+<pinref part="RST" gate="G$1" pin="P$2"/>
 <wire x1="27.94" y1="86.36" x2="38.1" y2="86.36" width="0.1524" layer="91"/>
 <junction x="27.94" y="86.36"/>
 <label x="33.02" y="86.36" size="1.778" layer="95"/>
