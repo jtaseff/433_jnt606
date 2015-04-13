@@ -12,8 +12,11 @@
 // not fully featured, just demonstrates basic operation
 // note that resetting the PIC does not perform a reset on the OLED display, only power cycling does
 
-#ifndef I2C_DISPLAY_H__
-#define I2C_DISPLAY_H__
+// this is an intermediate layer for interfacing with the OLED
+// main graphics functionality in OLED_GRAPHICS
+
+#ifndef OLED_CONTROL_I2C_H
+#define OLED_CONTROL_I2C_H
 
 #define WIDTH 128 //display width in bits
 #define HEIGHT 64 //display height, in bits

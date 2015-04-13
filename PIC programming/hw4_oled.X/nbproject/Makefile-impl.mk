@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=hw4
+PROJECTNAME=hw4_oled.X
 
 # Active Configuration
 DEFAULTCONF=default

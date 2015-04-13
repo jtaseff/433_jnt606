@@ -92,7 +92,7 @@ void __ISR(_I2C_1_VECTOR, IPL1SOFT) I2C1SlaveInterrupt(void) {
 
 void i2c_master_setup() {
     int ie = __builtin_disable_interrupts();
-    I2C1BRG = 0xC6; //90; // I2CBRG = [1/(2*Fsck) - PGD]*Pblck - 2
+    I2C1BRG = 48; //90; // I2CBRG = [1/(2*Fsck) - PGD]*Pblck - 2
     // Fsck is the frequency (usually 100khz or 400 khz), PGD = 104ns
     // this is 400 khz mode
     // enable the i2c interrupts

@@ -7,12 +7,14 @@
 // note that resetting the PIC does not perform a reset on the OLED display, only power cycling does
 
 // source: 433 reference and files
+// most functionality is in oled_graphics, and uses this layer to communicate
 
 #define DISPLAY_ADDR 0x3C
 
 #define SIZE WIDTH*HEIGHT/8 //display size, in bytes
 
 static unsigned char video_buffer[SIZE+1] = {0};          // buffer for sending over i2c. The first byte allows us to store the control character
+                                                          // don't use normally, draw things to gdram
 static unsigned char * gddram = video_buffer + 1;   // actual video ram. write pixels to gddram
 
 
@@ -51,6 +53,7 @@ void display_draw() {        // copies data to the gddram on the oled chip
 
 void display_clear() {
   memset(gddram,0,SIZE);
+  //clears all of gdram
 }
 
 static inline int pixel_pos(int row, int col) { // get the position in gddram of the pixel position
