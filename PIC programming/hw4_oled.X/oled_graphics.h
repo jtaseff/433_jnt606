@@ -16,21 +16,17 @@
 #include "oled_control_i2c.h"
 
 void oled_init();
-
 void oled_command(unsigned char cmd);
-
 void oled_update();
-
 void oled_clear_buffer();
-
 void oled_clear_screen();
-
 void oled_pixel(int row, int col, int val);
-
 void oled_draw_char(int xpos, int ypos, char fontwd, unsigned char c, char color);
-
-void oled_draw_string(int xpos, int ypos, char * s);
-
+void oled_draw_string(int xpos, int ypos, char * s, char color);
+void oled_draw_hline(int x1, int x2, int ypos, char color);
+void oled_draw_vline(int xpos, int y1, int y2, char color);
+void oled_draw_line(int x1, int x2, int y1, int y2, char color);
+void oled_draw_rect(int x1, int x2, int y1, int y2, char color);
 
 #endif	/* OLED_GRAPHICS_H */
 

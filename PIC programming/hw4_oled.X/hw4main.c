@@ -31,9 +31,13 @@ int main(int argc, char** argv) {
     //i2c_master_setup();
     oled_init();
     oled_clear_buffer();
-    oled_draw_char(30, 10, 5, 'J', 1);
-    oled_draw_char(40, 20, 5, 'J', 0);
-    oled_draw_string(0, 40, "John rul3z!!11!");
+
+    char msg[25] = "butts";
+    int leet = 1337;
+    sprintf(msg, "Hello world %d!", leet);
+    oled_draw_string(22, 32, msg, 1);
+    
+    oled_draw_rect(20, 126, 29, 43, 1);
     oled_update();
 
     while(1) {
