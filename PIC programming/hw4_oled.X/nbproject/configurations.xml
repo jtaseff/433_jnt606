@@ -6,6 +6,9 @@
                    projectFiles="true">
       <itemPath>i2c_master.h</itemPath>
       <itemPath>oled_control_i2c.h</itemPath>
+      <itemPath>config_pic32_mx250.h</itemPath>
+      <itemPath>fonts.h</itemPath>
+      <itemPath>oled_graphics.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -17,6 +20,7 @@
       <itemPath>hw4main.c</itemPath>
       <itemPath>i2c_master.c</itemPath>
       <itemPath>oled_control_i2c.c</itemPath>
+      <itemPath>oled_graphics.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -186,6 +190,7 @@
         <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
         <property key="UART1" value="true"/>
         <property key="UART2" value="true"/>
+        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="true"/>

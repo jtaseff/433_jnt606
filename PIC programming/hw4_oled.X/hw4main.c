@@ -10,7 +10,7 @@
 #include <xc.h> // processor SFR definitions
 #include <sys/attribs.h> // __ISR macro
 #include "i2c_master.h"
-#include "oled_control_i2c.h"
+#include "oled_graphics.h"
 
 #include "config_pic32_mx250.h"
 
@@ -29,12 +29,12 @@ int main(int argc, char** argv) {
     _CP0_SET_COUNT(0);
     while(_CP0_GET_COUNT() < 4000000);
     //i2c_master_setup();
-    display_init();
-    display_clear();
-    display_pixel_set(5,5,1);
-    display_pixel_set(4,4,0);
-    display_draw();
-    display_command(0xA5);
+    oled_init();
+    oled_clear_buffer();
+    oled_draw_char(30, 10, 5, 'J', 1);
+    oled_draw_char(40, 20, 5, 'J', 0);
+    oled_draw_string(0, 40, "John rul3z!!11!");
+    oled_update();
 
     while(1) {
         _CP0_SET_COUNT(0);
