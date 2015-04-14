@@ -47,7 +47,8 @@ void oled_draw_char(int xpos, int ypos, char fontwd, unsigned char c, char color
     for (jjcol = 0; jjcol < fontwd; jjcol++) {
         line = font5x8sys[5 * (c - 32) + jjcol]; // grab font data
         for (iirow = 0; iirow < fontht; iirow++) {
-            display_pixel_set(xpos + jjcol, ypos + iirow, (line >> iirow) & 1);
+            if ((line >> iirow) & 1)
+                display_pixel_set(xpos + jjcol, ypos + iirow, ((line >> iirow) & 1) ^ !color);
         }
     }
 }
@@ -67,7 +68,7 @@ void oled_draw_string(int xpos, int ypos, char * s, char color) {
     int strcount;
     for (strcount = 0; strcount < numchars; strcount++) {
         oled_draw_char(xpos + strcount * 6, ypos, 5, s[strcount], color);
-        // draw vline for a space
+        //oled_draw_vline(xpos + strcount * 6)
     }
 }
 
@@ -117,4 +118,16 @@ void oled_draw_rect(int x1, int x2, int y1, int y2, char color) {
     oled_draw_vline(x1, y1, y2, color);
     oled_draw_vline(x2, y1, y2, color);
     
+}
+
+void oled_draw_rect_fill(int x1, int x2, int y1, int y2, char color) {
+    if (y1 > y2) {
+        int temp = y2;
+        y2 = y1;
+        y1 = temp;
+    }
+    for (; y1 <= y2; y1++)
+    {
+        oled_draw_hline(x1, x2, y1, color);
+    }
 }

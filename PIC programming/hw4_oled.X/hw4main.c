@@ -35,9 +35,10 @@ int main(int argc, char** argv) {
     char msg[25] = "butts";
     int leet = 1337;
     sprintf(msg, "Hello world %d!", leet);
-    oled_draw_string(22, 32, msg, 1);
-    
-    oled_draw_rect(19, 124, 28, 43, 1);
+
+    oled_draw_rect_fill(16, 127, 25, 42, 1);
+    oled_draw_string(22, 32, msg, 0);
+    //oled_draw_rect(19, 124, 28, 43, 1);
     oled_update();
 
     while(1) {
