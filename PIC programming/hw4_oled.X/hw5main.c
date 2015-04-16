@@ -11,6 +11,7 @@
 #include <sys/attribs.h> // __ISR macro
 #include "i2c_master.h"
 #include "oled_graphics.h"
+#include "accel_spi.h"
 
 #include "config_pic32_mx250.h"
 
@@ -26,26 +27,58 @@ int main(int argc, char** argv) {
     TRISBCLR = 0x01;
     LATBSET = 0x01;
 
+    //set up accelerometer
+    acc_setup();
+    //variables for accel data reads
+    short accels[3];
+    short mags[3];
+    short temp;
+    //short accdisp[3];
+
+    //set up OLED
+    //pause for OLED to power up
     _CP0_SET_COUNT(0);
     while(_CP0_GET_COUNT() < 4000000);
-    //i2c_master_setup();
     oled_init();
     oled_clear_buffer();
 
-    char msg[25] = "butts";
-    int leet = 1337;
-    sprintf(msg, "Hello world %d!", leet);
 
-    oled_draw_rect_fill(16, 127, 25, 42, 1);
-    oled_draw_string(22, 32, msg, 0);
-    //oled_draw_rect(19, 124, 28, 43, 1);
-    oled_update();
+    char magmsg[25];
+    char tempmsg[10];
 
-    while(1) {
+    char msg[25];
+
+    //start doing shit
+    while (1) {
+        //read all the accel axes
+        acc_read_register(OUT_X_L_A, (unsigned char *) accels, 6);
+        acc_read_register(OUT_X_L_A, (unsigned char *) mags, 6);
+        acc_read_register(TEMP_OUT_L, (unsigned char *) &temp, 2);
+
+        oled_clear_buffer();
+
+        // chop y so it fits on screen
+        if(accels[1] > 16387)
+            accels[1] = 16387;
+        if(accels[1] < -16387)
+            accels[1] = -16387;
+
+        oled_draw_rect_fill(64,64-(accels[0]/512),30,34);  //draw x across screen
+        oled_draw_rect_fill(62,66,30,30-(accels[1]/512));  //draw y
+        //oled_draw_rect_fill(63,63-(accels[2]/512),20,26);  //draw z
+        //sprintf(magmsg, "X: %+5d", mags[0]);
+        //sprintf(tempmsg, "Temp: %d", temp);
+        //oled_draw_string(0,40,magmsg, 1);     //x-mag
+        //oled_draw_string(0,50,tempmsg, 1);     //temp
+
+        oled_update();
+
+
+        //wait a while, run at 5hz
         _CP0_SET_COUNT(0);
-        LATBINV = 0x01;
-        while (_CP0_GET_COUNT() < 10000000);
+        while (_CP0_GET_COUNT() < 1600000);
     }
+
 
 
     return (EXIT_SUCCESS);

@@ -45,17 +45,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=hw4main.c i2c_master.c oled_control_i2c.c oled_graphics.c
+SOURCEFILES_QUOTED_IF_SPACED=i2c_master.c oled_control_i2c.c oled_graphics.c accel_spi.c hw5main.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/hw4main.o ${OBJECTDIR}/i2c_master.o ${OBJECTDIR}/oled_control_i2c.o ${OBJECTDIR}/oled_graphics.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/hw4main.o.d ${OBJECTDIR}/i2c_master.o.d ${OBJECTDIR}/oled_control_i2c.o.d ${OBJECTDIR}/oled_graphics.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/i2c_master.o ${OBJECTDIR}/oled_control_i2c.o ${OBJECTDIR}/oled_graphics.o ${OBJECTDIR}/accel_spi.o ${OBJECTDIR}/hw5main.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/i2c_master.o.d ${OBJECTDIR}/oled_control_i2c.o.d ${OBJECTDIR}/oled_graphics.o.d ${OBJECTDIR}/accel_spi.o.d ${OBJECTDIR}/hw5main.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/hw4main.o ${OBJECTDIR}/i2c_master.o ${OBJECTDIR}/oled_control_i2c.o ${OBJECTDIR}/oled_graphics.o
+OBJECTFILES=${OBJECTDIR}/i2c_master.o ${OBJECTDIR}/oled_control_i2c.o ${OBJECTDIR}/oled_graphics.o ${OBJECTDIR}/accel_spi.o ${OBJECTDIR}/hw5main.o
 
 # Source Files
-SOURCEFILES=hw4main.c i2c_master.c oled_control_i2c.c oled_graphics.c
+SOURCEFILES=i2c_master.c oled_control_i2c.c oled_graphics.c accel_spi.c hw5main.c
 
 
 CFLAGS=
@@ -94,12 +94,6 @@ endif
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/hw4main.o: hw4main.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/hw4main.o.d 
-	@${RM} ${OBJECTDIR}/hw4main.o 
-	@${FIXDEPS} "${OBJECTDIR}/hw4main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/hw4main.o.d" -o ${OBJECTDIR}/hw4main.o hw4main.c   
-	
 ${OBJECTDIR}/i2c_master.o: i2c_master.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/i2c_master.o.d 
@@ -118,13 +112,19 @@ ${OBJECTDIR}/oled_graphics.o: oled_graphics.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/oled_graphics.o 
 	@${FIXDEPS} "${OBJECTDIR}/oled_graphics.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/oled_graphics.o.d" -o ${OBJECTDIR}/oled_graphics.o oled_graphics.c   
 	
-else
-${OBJECTDIR}/hw4main.o: hw4main.c  nbproject/Makefile-${CND_CONF}.mk
+${OBJECTDIR}/accel_spi.o: accel_spi.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/hw4main.o.d 
-	@${RM} ${OBJECTDIR}/hw4main.o 
-	@${FIXDEPS} "${OBJECTDIR}/hw4main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/hw4main.o.d" -o ${OBJECTDIR}/hw4main.o hw4main.c   
+	@${RM} ${OBJECTDIR}/accel_spi.o.d 
+	@${RM} ${OBJECTDIR}/accel_spi.o 
+	@${FIXDEPS} "${OBJECTDIR}/accel_spi.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/accel_spi.o.d" -o ${OBJECTDIR}/accel_spi.o accel_spi.c   
 	
+${OBJECTDIR}/hw5main.o: hw5main.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/hw5main.o.d 
+	@${RM} ${OBJECTDIR}/hw5main.o 
+	@${FIXDEPS} "${OBJECTDIR}/hw5main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/hw5main.o.d" -o ${OBJECTDIR}/hw5main.o hw5main.c   
+	
+else
 ${OBJECTDIR}/i2c_master.o: i2c_master.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/i2c_master.o.d 
@@ -142,6 +142,18 @@ ${OBJECTDIR}/oled_graphics.o: oled_graphics.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/oled_graphics.o.d 
 	@${RM} ${OBJECTDIR}/oled_graphics.o 
 	@${FIXDEPS} "${OBJECTDIR}/oled_graphics.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/oled_graphics.o.d" -o ${OBJECTDIR}/oled_graphics.o oled_graphics.c   
+	
+${OBJECTDIR}/accel_spi.o: accel_spi.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/accel_spi.o.d 
+	@${RM} ${OBJECTDIR}/accel_spi.o 
+	@${FIXDEPS} "${OBJECTDIR}/accel_spi.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/accel_spi.o.d" -o ${OBJECTDIR}/accel_spi.o accel_spi.c   
+	
+${OBJECTDIR}/hw5main.o: hw5main.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/hw5main.o.d 
+	@${RM} ${OBJECTDIR}/hw5main.o 
+	@${FIXDEPS} "${OBJECTDIR}/hw5main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/hw5main.o.d" -o ${OBJECTDIR}/hw5main.o hw5main.c   
 	
 endif
 

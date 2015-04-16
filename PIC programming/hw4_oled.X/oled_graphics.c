@@ -108,10 +108,6 @@ void oled_draw_vline(int xpos, int y1, int y2, char color) {
     }
 }
 
-void oled_draw_line(int x1, int x2, int y1, int y2, char color) {
-    //yeah do that
-}
-
 void oled_draw_rect(int x1, int x2, int y1, int y2, char color) {
     oled_draw_hline(x1, x2, y1, color);
     oled_draw_hline(x1, x2, y2, color);
@@ -130,4 +126,12 @@ void oled_draw_rect_fill(int x1, int x2, int y1, int y2, char color) {
     {
         oled_draw_hline(x1, x2, y1, color);
     }
+}
+
+void oled_draw_line(int x1, int x2, int y1, int y2, char color) {
+    //yeah do that
+}
+
+void oled_draw_circle(int xpos, int ypos, int rad, char color) {
+    //eventually
 }
