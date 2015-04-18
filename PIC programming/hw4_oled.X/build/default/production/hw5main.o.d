@@ -4,4 +4,5 @@ i2c_master.h  \
  oled_graphics.h  \
 oled_control_i2c.h  \
 accel_spi.h  \
-config_pic32_mx250.h 
+hw5_gravity.h  \
+ config_pic32_mx250.h 

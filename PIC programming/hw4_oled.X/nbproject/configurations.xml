@@ -10,6 +10,7 @@
       <itemPath>fonts.h</itemPath>
       <itemPath>oled_graphics.h</itemPath>
       <itemPath>accel_spi.h</itemPath>
+      <itemPath>hw5_gravity.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -23,6 +24,7 @@
       <itemPath>oled_graphics.c</itemPath>
       <itemPath>accel_spi.c</itemPath>
       <itemPath>hw5main.c</itemPath>
+      <itemPath>hw5_gravity.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
