@@ -1,17 +1,12 @@
-/* 
- * File:   config_pic32.h
- * Author: John
- *
- * Created on April 12, 2015, 6:28 PM
- */
+//JT - changed over to all of my pragmas from mx250
 
-// John's config file for the PIC32 MX250
+#include "system_config.h"
+#include "system_definitions.h"
+#include "app.h"
 
-#ifndef CONFIG_PIC32_H
-#define	CONFIG_PIC32_H
 
-// our new CFG set
-// DEVCFG0
+/*** DEVCFG0 ***/
+
 #pragma config DEBUG = OFF // no debugging
 #pragma config JTAGEN = OFF // no jtag
 #pragma config ICESEL = ICS_PGx3 // use PGED1 and PGEC1 // using 3
@@ -19,7 +14,8 @@
 #pragma config BWP = OFF // not boot write protect
 #pragma config CP = OFF // no code protect
 
-// DEVCFG1
+/*** DEVCFG1 ***/
+
 #pragma config FNOSC = PRIPLL // use primary oscillator with pll
 #pragma config FSOSCEN = OFF // turn off secondary oscillator
 #pragma config IESO = OFF // no switching clocks
@@ -32,14 +28,16 @@
 #pragma config FWDTEN = OFF // wdt off by default
 #pragma config FWDTWINSZ = WISZ_25 // wdt window at 25%
 
-// DEVCFG2 - get the CPU clock to 40MHz
+/*** DEVCFG2 ***/
+
 #pragma config FPLLIDIV = DIV_2 // divide input clock to be in range 4-5MHz
 #pragma config FPLLMUL = MUL_20 // multiply clock after FPLLIDIV
 #pragma config UPLLIDIV = DIV_2 // divide clock after FPLLMUL
 #pragma config UPLLEN = ON // USB clock on
 #pragma config FPLLODIV = DIV_2 // divide clock by 2 to output on pin
 
-// DEVCFG3
+/*** DEVCFG3 ***/
+
 #pragma config USERID = 11 // some 16bit userid
 #pragma config PMDL1WAY = ON // not multiple reconfiguration, check this
 #pragma config IOL1WAY = ON // not multimple reconfiguration, check this
@@ -47,29 +45,41 @@
 #pragma config FVBUSONIO = ON // controlled by USB module
 
 
-int startup(void) {
-    // Startup code to run as fast as possible and get pins back from bad defaults
+/* Structure to hold the object handles for the modules in the system. */
+SYSTEM_OBJECTS sysObj;
 
-    __builtin_disable_interrupts();
 
-    // set the CP0 CONFIG register to indicate that
-    // kseg0 is cacheable (0x3) or uncacheable (0x2)
-    // see Chapter 2 "CPU for Devices with M4K Core"
-    // of the PIC32 reference manual
-    __builtin_mtc0(_CP0_CONFIG, _CP0_CONFIG_SELECT, 0xa4210583);
 
-    // 0 data RAM access wait states
-    BMXCONbits.BMXWSDRM = 0x0;
+//<editor-fold defaultstate="collapsed" desc="SYS_DEVCON Configuration">
 
-    // enable multi vector interrupts
-    INTCONbits.MVEC = 0x1;
+/*** System Device Control Initialization Data ***/
 
-    // disable JTAG to be able to use TDI, TDO, TCK, TMS as digital
-    DDPCONbits.JTAGEN = 0;
+const SYS_DEVCON_INIT sysDevconInit =
+{
+    .moduleInit = {0},
+};
+// </editor-fold>
 
-    __builtin_enable_interrupts();
+
+
+void SYS_Initialize ( void* data )
+{
+    /* Core Processor Initialization */
+    SYS_CLK_Initialize( NULL );
+    sysObj.sysDevcon = SYS_DEVCON_Initialize(SYS_DEVCON_INDEX_0, (SYS_MODULE_INIT*)&sysDevconInit);
+    SYS_DEVCON_PerformanceConfig(SYS_CLK_SystemFrequencyGet());
+    SYS_DEVCON_JTAGDisable();
+    SYS_PORTS_Initialize();
+
+    /* Board Support Package Initialization */
+    BSP_Initialize();
+
+    /* Initialize the Application */
+    APP_Initialize();
+
 }
 
-
-#endif	/* CONFIG_PIC32_H */
+/*******************************************************************************
+ End of File
+*/
 

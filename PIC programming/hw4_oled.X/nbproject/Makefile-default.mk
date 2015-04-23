@@ -45,17 +45,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=i2c_master.c oled_control_i2c.c oled_graphics.c accel_spi.c hw5main.c hw5_gravity.c
+SOURCEFILES_QUOTED_IF_SPACED=accel_spi.c hw5main.c hw5_gravity.c i2c_master.c oled_control_i2c.c oled_graphics.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/i2c_master.o ${OBJECTDIR}/oled_control_i2c.o ${OBJECTDIR}/oled_graphics.o ${OBJECTDIR}/accel_spi.o ${OBJECTDIR}/hw5main.o ${OBJECTDIR}/hw5_gravity.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/i2c_master.o.d ${OBJECTDIR}/oled_control_i2c.o.d ${OBJECTDIR}/oled_graphics.o.d ${OBJECTDIR}/accel_spi.o.d ${OBJECTDIR}/hw5main.o.d ${OBJECTDIR}/hw5_gravity.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/accel_spi.o ${OBJECTDIR}/hw5main.o ${OBJECTDIR}/hw5_gravity.o ${OBJECTDIR}/i2c_master.o ${OBJECTDIR}/oled_control_i2c.o ${OBJECTDIR}/oled_graphics.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/accel_spi.o.d ${OBJECTDIR}/hw5main.o.d ${OBJECTDIR}/hw5_gravity.o.d ${OBJECTDIR}/i2c_master.o.d ${OBJECTDIR}/oled_control_i2c.o.d ${OBJECTDIR}/oled_graphics.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/i2c_master.o ${OBJECTDIR}/oled_control_i2c.o ${OBJECTDIR}/oled_graphics.o ${OBJECTDIR}/accel_spi.o ${OBJECTDIR}/hw5main.o ${OBJECTDIR}/hw5_gravity.o
+OBJECTFILES=${OBJECTDIR}/accel_spi.o ${OBJECTDIR}/hw5main.o ${OBJECTDIR}/hw5_gravity.o ${OBJECTDIR}/i2c_master.o ${OBJECTDIR}/oled_control_i2c.o ${OBJECTDIR}/oled_graphics.o
 
 # Source Files
-SOURCEFILES=i2c_master.c oled_control_i2c.c oled_graphics.c accel_spi.c hw5main.c hw5_gravity.c
+SOURCEFILES=accel_spi.c hw5main.c hw5_gravity.c i2c_master.c oled_control_i2c.c oled_graphics.c
 
 
 CFLAGS=
@@ -94,24 +94,6 @@ endif
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/i2c_master.o: i2c_master.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/i2c_master.o.d 
-	@${RM} ${OBJECTDIR}/i2c_master.o 
-	@${FIXDEPS} "${OBJECTDIR}/i2c_master.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/i2c_master.o.d" -o ${OBJECTDIR}/i2c_master.o i2c_master.c   
-	
-${OBJECTDIR}/oled_control_i2c.o: oled_control_i2c.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/oled_control_i2c.o.d 
-	@${RM} ${OBJECTDIR}/oled_control_i2c.o 
-	@${FIXDEPS} "${OBJECTDIR}/oled_control_i2c.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/oled_control_i2c.o.d" -o ${OBJECTDIR}/oled_control_i2c.o oled_control_i2c.c   
-	
-${OBJECTDIR}/oled_graphics.o: oled_graphics.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/oled_graphics.o.d 
-	@${RM} ${OBJECTDIR}/oled_graphics.o 
-	@${FIXDEPS} "${OBJECTDIR}/oled_graphics.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/oled_graphics.o.d" -o ${OBJECTDIR}/oled_graphics.o oled_graphics.c   
-	
 ${OBJECTDIR}/accel_spi.o: accel_spi.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/accel_spi.o.d 
@@ -130,25 +112,25 @@ ${OBJECTDIR}/hw5_gravity.o: hw5_gravity.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/hw5_gravity.o 
 	@${FIXDEPS} "${OBJECTDIR}/hw5_gravity.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/hw5_gravity.o.d" -o ${OBJECTDIR}/hw5_gravity.o hw5_gravity.c   
 	
-else
 ${OBJECTDIR}/i2c_master.o: i2c_master.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/i2c_master.o.d 
 	@${RM} ${OBJECTDIR}/i2c_master.o 
-	@${FIXDEPS} "${OBJECTDIR}/i2c_master.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/i2c_master.o.d" -o ${OBJECTDIR}/i2c_master.o i2c_master.c   
+	@${FIXDEPS} "${OBJECTDIR}/i2c_master.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/i2c_master.o.d" -o ${OBJECTDIR}/i2c_master.o i2c_master.c   
 	
 ${OBJECTDIR}/oled_control_i2c.o: oled_control_i2c.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/oled_control_i2c.o.d 
 	@${RM} ${OBJECTDIR}/oled_control_i2c.o 
-	@${FIXDEPS} "${OBJECTDIR}/oled_control_i2c.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/oled_control_i2c.o.d" -o ${OBJECTDIR}/oled_control_i2c.o oled_control_i2c.c   
+	@${FIXDEPS} "${OBJECTDIR}/oled_control_i2c.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/oled_control_i2c.o.d" -o ${OBJECTDIR}/oled_control_i2c.o oled_control_i2c.c   
 	
 ${OBJECTDIR}/oled_graphics.o: oled_graphics.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/oled_graphics.o.d 
 	@${RM} ${OBJECTDIR}/oled_graphics.o 
-	@${FIXDEPS} "${OBJECTDIR}/oled_graphics.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/oled_graphics.o.d" -o ${OBJECTDIR}/oled_graphics.o oled_graphics.c   
+	@${FIXDEPS} "${OBJECTDIR}/oled_graphics.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/oled_graphics.o.d" -o ${OBJECTDIR}/oled_graphics.o oled_graphics.c   
 	
+else
 ${OBJECTDIR}/accel_spi.o: accel_spi.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/accel_spi.o.d 
@@ -166,6 +148,24 @@ ${OBJECTDIR}/hw5_gravity.o: hw5_gravity.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/hw5_gravity.o.d 
 	@${RM} ${OBJECTDIR}/hw5_gravity.o 
 	@${FIXDEPS} "${OBJECTDIR}/hw5_gravity.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/hw5_gravity.o.d" -o ${OBJECTDIR}/hw5_gravity.o hw5_gravity.c   
+	
+${OBJECTDIR}/i2c_master.o: i2c_master.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/i2c_master.o.d 
+	@${RM} ${OBJECTDIR}/i2c_master.o 
+	@${FIXDEPS} "${OBJECTDIR}/i2c_master.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/i2c_master.o.d" -o ${OBJECTDIR}/i2c_master.o i2c_master.c   
+	
+${OBJECTDIR}/oled_control_i2c.o: oled_control_i2c.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/oled_control_i2c.o.d 
+	@${RM} ${OBJECTDIR}/oled_control_i2c.o 
+	@${FIXDEPS} "${OBJECTDIR}/oled_control_i2c.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/oled_control_i2c.o.d" -o ${OBJECTDIR}/oled_control_i2c.o oled_control_i2c.c   
+	
+${OBJECTDIR}/oled_graphics.o: oled_graphics.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/oled_graphics.o.d 
+	@${RM} ${OBJECTDIR}/oled_graphics.o 
+	@${FIXDEPS} "${OBJECTDIR}/oled_graphics.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/oled_graphics.o.d" -o ${OBJECTDIR}/oled_graphics.o oled_graphics.c   
 	
 endif
 
