@@ -9,8 +9,8 @@
       <itemPath>config_pic32_mx250.h</itemPath>
       <itemPath>fonts.h</itemPath>
       <itemPath>oled_graphics.h</itemPath>
-      <itemPath>accel_spi.h</itemPath>
       <itemPath>hw5_gravity.h</itemPath>
+      <itemPath>accel_spi.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
