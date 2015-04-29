@@ -6,8 +6,8 @@
 // Connect SDA2 to the SDA pin on a slave device and SCL2 to the SCL pin on a slave device
 
 #include "i2c_master.h"
-#include<xc.h>                      // processor SFR definitions
-#include<sys/attribs.h>             // __ISR macro
+#include <xc.h>                      // processor SFR definitions
+#include <sys/attribs.h>             // __ISR macro
 
 static volatile enum {
     IDLE, START, WRITE, READ, RESTART, ACK, NACK, STOP, ERROR
@@ -104,6 +104,7 @@ void i2c_master_setup() {
     if (ie & 1) {
         __builtin_enable_interrupts();
     }
+    INTEnableSystemMultiVectoredInt();
 }
 
 int i2c_write_read(unsigned int addr, const buffer_t write, unsigned int wlen, const buffer_t read, unsigned int rlen) {

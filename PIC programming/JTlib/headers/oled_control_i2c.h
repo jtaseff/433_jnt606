@@ -18,6 +18,8 @@
 #ifndef OLED_CONTROL_I2C_H
 #define OLED_CONTROL_I2C_H
 
+#include "i2c_master.h"
+
 #define WIDTH 128 //display width in bits
 #define HEIGHT 64 //display height, in bits
 

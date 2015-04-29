@@ -5,6 +5,7 @@
 
 void oled_init() {
     display_init();
+    oled_clear_screen();
 }
 
 void oled_command(unsigned char cmd) {
