@@ -2,6 +2,7 @@
 #include <string.h>
 #include "oled_control_i2c.h"
 #include "fonts.h"
+#include "oled_graphics.h"
 
 void oled_init() {
     display_init();
