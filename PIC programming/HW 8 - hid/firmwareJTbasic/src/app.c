@@ -166,6 +166,7 @@ void APP_USBDeviceEventHandler(USB_DEVICE_EVENT event, void * eventData, uintptr
 // *****************************************************************************
 
 // sets state back to ready to receive - call after dealing with received data
+
 void setRTR() {
     appData.hidDataReceived = false;
 
@@ -175,6 +176,7 @@ void setRTR() {
 }
 
 // sets state back to ready to send - call after new data is in send buffer
+
 void setRTS() {
     appData.hidDataTransmitted = false;
 
@@ -298,16 +300,55 @@ void APP_Tasks(void) {
                         }
                         break;
 
-                        
+
                     case 0x82:
+                        if (!appData.numTX || _CP0_GET_COUNT() > 200000) {
+
+                            //prepare new data to send
+                            acc_read_register(OUT_X_L_A, (unsigned char *) appData.accels, 6);
+                            appData.transmitDataBuffer[0] = 1; //we have data to send
+                            appData.transmitDataBuffer[1] = appData.accels[0] >> 8; //x high byte
+                            appData.transmitDataBuffer[2] = appData.accels[0] & 0xFF; //x low byte
+                            appData.transmitDataBuffer[3] = appData.accels[1] >> 8; //y high byte
+                            appData.transmitDataBuffer[4] = appData.accels[1] & 0xFF; //y low byte
+                            appData.transmitDataBuffer[5] = appData.accels[2] >> 8; //z high byte
+                            appData.transmitDataBuffer[6] = appData.accels[2] & 0xFF; //z low byte
+
+                            // reset core timer for 100 hz
+                            _CP0_SET_COUNT(0);
+                            appData.numTX++;
+                        }
+                        else {
+                            appData.transmitDataBuffer[0] = 0;  // we don't have new data
+                        }
+
+                        setRTS();
+                        setRTR();
+                        break;
+
+                    case 0x83:
+                        // prepare for a bout of sending accel data
+                        //parse incoming data to screen
                         oled_clear_buffer();
-
                         int row = appData.receiveDataBuffer[1];
-
                         char * msg;
                         msg = &appData.receiveDataBuffer[2];
 
                         oled_draw_string(0, row, msg, 1);
+                        oled_update();
+
+
+                        // clear buffered accel data so we read new data to send
+                        acc_read_register(OUT_X_L_A, (unsigned char *) appData.accels, 6);
+
+                        appData.numTX = 0; //we're starting over
+
+                        setRTR();
+                        break;
+
+                    case 0x84:
+                        // done asking for data
+                        oled_draw_string(0, 55, "Done!", 1);
                         oled_update();
 
                         setRTR();
