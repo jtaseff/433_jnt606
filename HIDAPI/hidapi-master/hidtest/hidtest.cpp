@@ -18,6 +18,7 @@ int main(int argc, char* argv[])
 	wchar_t wstr[MAX_STR];
 	hid_device *handle;
 	int i;
+	short accx;
 
 	// Initialize the hidapi library
 	res = hid_init();
@@ -62,15 +63,17 @@ int main(int argc, char* argv[])
 	
 	// Custom data sending
 	char msg[] = "buckfutter";
-	unsigned char msgu[] = "fuckbutter";
-	char fuck[20];
-	unsigned char fucku[20];
 	
 	buf[0] = 0x0;
 	buf[1] = 0x82;
 	buf[2] = 30;
 	strcpy((char *) buf+3, msg);
 	res = hid_write(handle, buf, 65);
+	
+	res = hid_read(handle, buf, 65);
+	accx = (buf[1] << 8) | buf[2];
+	printf("0: %d   1: %d   2: %d\n", buf[0], buf[1], buf[2]);
+	printf("acc x: %d\n", accx);
 	
 	// Finalize the hidapi library
 	res = hid_exit();
