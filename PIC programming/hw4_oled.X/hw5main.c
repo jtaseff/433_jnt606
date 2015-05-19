@@ -26,9 +26,11 @@ int main(int argc, char** argv) {
     //hw5_function();
 
 
-    ANSELBCLR = 0x01;
-    TRISBCLR = 0x01;
-    LATBSET = 0x01;
+    //code below is a test to periodically dim the OLED screen with its command set
+
+    //ANSELBCLR = 0x01;   //don't need for PCB
+    TRISBCLR = 0x80;    //moving to PCB, was 0x01
+    LATBSET = 0x80;     //same
 
     oled_init();
     oled_draw_string(0, 0, "My spoon is TOO BIG", 1);
@@ -40,7 +42,7 @@ int main(int argc, char** argv) {
 
         oled_command(0x81);
         oled_command(0x01);
-        LATBINV = 0x01;
+        LATBINV = 0x80;
 
 
         _CP0_SET_COUNT(0);
@@ -48,7 +50,7 @@ int main(int argc, char** argv) {
 
         oled_command(0x81);
         oled_command(0xFF);
-        LATBINV = 0x01;
+        LATBINV = 0x80;
     }
 
 
