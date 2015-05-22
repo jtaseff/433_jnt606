@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">HelloWorld</string>
 
-    <string name="hello_world">Hello world!</string>
+    <string name="hello_world">Testing... 1... 2...!</string>
     <string name="action_settings">Settings</string>
 </resources>
