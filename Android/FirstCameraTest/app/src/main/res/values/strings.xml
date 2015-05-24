@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">FirstCameraTest</string>
+
+    <string name="hello_world">App currently idle</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_camera_pic">CameraPic</string>
+</resources>

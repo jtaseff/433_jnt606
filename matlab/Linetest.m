@@ -1,0 +1,2 @@
+clear
+open('picbw.jpg');

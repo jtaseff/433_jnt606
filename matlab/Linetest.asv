@@ -1,0 +1,9 @@
+clear
+open('picbw.jpg');
+
+%grab our first row of image data, near wheels
+row1 = picbw(:, 500, 1);
+
+%cutoff for pixels over/under 100 value (b/w data)
+row1c = row1 < 100;
+
