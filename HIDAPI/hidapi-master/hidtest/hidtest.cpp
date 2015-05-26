@@ -39,6 +39,7 @@ int main(int argc, char* argv[])
 	// Open the device using the VID, PID,
 	// and optionally the Serial number.
 	handle = hid_open(0x4d8, 0x3f, NULL);
+	printf("opened");
 
 	
 	// Toggle LED (cmd 0x80). The first byte is the report number (0x0).
@@ -55,7 +56,7 @@ int main(int argc, char* argv[])
 	
 	
 	int replies = 0;
-	while (replies < 500) {
+	while (replies < 10) {
 	
 		buf[0] = 0x0;
 		buf[1] = 0x82;	// data cmd

@@ -91,6 +91,7 @@ public class CameraDemo extends Activity {
         previewHolder.addCallback(myPreview);
         previewHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 
+
         // Record image when "Capture image" button is pressed
         captureImage.setOnClickListener(captureImageListener);
     }

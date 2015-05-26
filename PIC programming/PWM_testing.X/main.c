@@ -118,10 +118,10 @@ int main(int argc, char** argv) {
 
 void config() {
     startup();  //extra bit of code to get some things set up
-
-    ANSELBCLR = 0b1010000000001110;     //disable AN for our pins
-    TRISBCLR = 0x8080;              //LED1 and 2 on B7 and B15
-    LATBCLR = 0x8080;               //LEDs off
+//
+//    ANSELBCLR = 0b1010000000001110;     //disable AN for our pins
+//    TRISBCLR = 0x8080;              //LED1 and 2 on B7 and B15
+//    LATBCLR = 0x8080;               //LEDs off
 
     oled_init();                    //initialize I2C and configure the OLED
 
