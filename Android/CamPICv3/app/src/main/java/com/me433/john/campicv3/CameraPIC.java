@@ -1,12 +1,28 @@
 package com.me433.john.campicv3;
 
 import android.app.Activity;
+import android.content.Context;
 import android.hardware.Camera;
+import android.hardware.usb.UsbDeviceConnection;
+import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.View;
 import android.widget.TextView;
+
+import com.hoho.android.usbserial.driver.CdcAcmSerialDriver;
+import com.hoho.android.usbserial.driver.ProbeTable;
+import com.hoho.android.usbserial.driver.UsbSerialDriver;
+import com.hoho.android.usbserial.driver.UsbSerialPort;
+import com.hoho.android.usbserial.driver.UsbSerialProber;
+import com.hoho.android.usbserial.util.HexDump;
+import com.hoho.android.usbserial.util.SerialInputOutputManager;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 public class CameraPIC extends Activity implements Camera.PreviewCallback {
@@ -20,6 +36,13 @@ public class CameraPIC extends Activity implements Camera.PreviewCallback {
     private TextView textStatusComm;
     private TextView textStatusValue;
     private TextView textLine1Value;
+
+    UsbManager manager = null;
+    UsbSerialDriver driver = null;
+    UsbDeviceConnection connection = null;
+    UsbSerialPort port = null;
+
+    private final String st = "Cereal";
 
     int numFrames = 0;
 
@@ -35,7 +58,9 @@ public class CameraPIC extends Activity implements Camera.PreviewCallback {
 
 
         initCameraPreview();
-        textStatusCam.setText("analyzing live");
+        camera.stopPreview();
+        textStatusCam.setText("video feed ready, paused");
+
 
     }
 
@@ -43,36 +68,93 @@ public class CameraPIC extends Activity implements Camera.PreviewCallback {
     public void btnCamStart(View view) {
         if (camera != null) {
             camera.startPreview();
-            textStatusCam.setText("started again");
+            textStatusCam.setText("Video feed started");
         }
     }
 
     public void btnCamStop(View view) {
         if (camera != null) {
             camera.stopPreview();
-            textStatusCam.setText("stopped");
+            textStatusCam.setText("video feed paused");
         }
     }
 
     public void btnCommStart(View view) {
 
-        textStatusComm.setText("data link waiting.");
+        Log.i(st, "starting manager");
+        manager = (UsbManager) getSystemService(Context.USB_SERVICE);
+        Log.i(st, "starting prober");
+        ProbeTable customTable = new ProbeTable();
+        customTable.addProduct(0x04D8, 0x000A, CdcAcmSerialDriver.class);
+        UsbSerialProber prober = new UsbSerialProber(customTable);
+        List<UsbSerialDriver> availableDrivers = prober.findAllDrivers(manager);
+        if (availableDrivers.isEmpty()) {
+            Log.i(st, "no available drivers");
+            return;
+        }
+        Log.i(st, "found a device, getting driver");
+        driver = availableDrivers.get(0);
+        if (driver == null)
+            Log.i(st, "driver is null");
+        Log.i(st, "got driver, requesting permission");
+        //manager.requestPermission(driver.getDevice(), null);
+        Log.i(st, "passed permission, opening device");
+        connection = manager.openDevice(driver.getDevice());
+        if (connection == null) {
+            Log.i(st, "connection is null");
+            return;
+        }
+        Log.i(st, "have a connection, opening port");
+        List<UsbSerialPort> ports = driver.getPorts();
+        port = ports.get(0);
+        try {
+            port.open(connection);
+            Log.i(st, "opened port!");
+
+
+        } catch (IOException e) {
+            Log.i(st, "caught at opening port: " + e);
+        }
+
+        textStatusComm.setText("data link opened");
+
+        byte[] outmsg = {'f', 'a', 'r', 't'};
+        try {
+            port.write(outmsg, 500);
+        } catch (IOException e) {
+            Log.e(st, "error writing to port: " + e.getMessage());
+        }
+
+
     }
 
     public void btnCommStop(View view) {
 
         textStatusComm.setText("data link stopped.");
+
+        try {
+            port.close();
+        } catch (IOException e) {
+            Log.e(st, "error closing port :" + e.getMessage());
+        }
+
     }
 
     public void btnMotionStart(View view) {
 
-        textStatusValue.setText("started, waiting for value");
+
+        textStatusValue.setText("sent a thing");
+
+
     }
 
     public void btnMotionStop(View view) {
 
         textStatusValue.setText("stopped. Last value NULL");
     }
+
+
+    //Serial stuff below
 
 
     //Camera stuff below
@@ -99,12 +181,12 @@ public class CameraPIC extends Activity implements Camera.PreviewCallback {
             Log.e("Camera", "Error initializing camera. " + e);
         }
 
-        Log.d("Camera", "Initialized to size " + previewSize.width +"w x " + previewSize.height + "h");
+        Log.d("Camera", "Initialized to size " + previewSize.width + "w x " + previewSize.height + "h");
     }
 
 
     int size;
-    int [] grpx;
+    int[] grpx;
     int p;
     int value;
     int findSum;
@@ -114,9 +196,9 @@ public class CameraPIC extends Activity implements Camera.PreviewCallback {
 
     @Override
     public void onPreviewFrame(byte[] data, Camera camera) {
-        numFrames ++;
+        numFrames++;
 
-        size = previewSize.width*previewSize.height;
+        size = previewSize.width * previewSize.height;
         grpx = new int[size];
 
         //extract the luminance value into a new array
@@ -128,7 +210,6 @@ public class CameraPIC extends Activity implements Camera.PreviewCallback {
         value = 0;
         findSum = 0;
         findNum = 0;
-
 
 
         //look at a chunk of 5 rows, every other, to eliminate noise in a single line
@@ -202,6 +283,15 @@ public class CameraPIC extends Activity implements Camera.PreviewCallback {
             camera.setPreviewCallback(null);
             camera.release();
             camera = null;
+        }
+        if (port != null) {
+            try {
+                port.close();
+            } catch (IOException e) {
+                Log.e(st, "error closing port :" + e.getMessage());
+            }
+            port = null;
+
         }
         super.onDestroy();
     }
