@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -49,6 +50,11 @@ public class CameraPIC extends Activity implements Camera.PreviewCallback {
     private TextView seekThreshText;
     private TextView seekLineposText;
 
+    private TextView textPixmin;
+    private TextView textPixmax;
+    private TextView textPixthresh;
+    private TextView textPixamean;
+
     UsbManager manager = null;
     UsbSerialDriver driver = null;
     UsbDeviceConnection connection = null;
@@ -83,6 +89,12 @@ public class CameraPIC extends Activity implements Camera.PreviewCallback {
         seekLinepos = (SeekBar) findViewById(R.id.seekLinepos);
         seekLineposText = (TextView) findViewById(R.id.seekLineposText);
 
+        textPixmin = (TextView) findViewById(R.id.textPixmin);
+        textPixmax = (TextView) findViewById(R.id.textPixmax);
+        textPixthresh = (TextView) findViewById(R.id.textPixthresh);
+        textPixamean = (TextView) findViewById(R.id.textPixamean);
+
+
         seekPower.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -112,6 +124,7 @@ public class CameraPIC extends Activity implements Camera.PreviewCallback {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 threshold = seekBar.getProgress();
+                pixthreshratio = (double) seekBar.getProgress() / 255;
                 seekThreshText.setText(seekBar.getProgress() + " img threshold");
             }
 
@@ -259,6 +272,10 @@ public class CameraPIC extends Activity implements Camera.PreviewCallback {
         PWMstatus = "Stopped  ";
     }
 
+    public void btnAdapt(View view) {
+        useAdaptive = ((CheckBox) view).isChecked();
+    }
+
 
     //Serial stuff below
     boolean serialReady = false;
@@ -266,12 +283,15 @@ public class CameraPIC extends Activity implements Camera.PreviewCallback {
     int left;
     int right;
     int diff;
-    boolean lastwasleft;
     boolean lost;
+
 
     byte[] outmsg = new byte[4];
 
     private void updateRobot() {
+        if (useAdaptive)
+            mean = adaptmean;   //switch values to adaptive routine if checkbox checked
+
         if (motionOn < 2) {
             // idle or stopped
             left = 0;
@@ -283,32 +303,27 @@ public class CameraPIC extends Activity implements Camera.PreviewCallback {
 
             if (mean < 360){
                 lost = false;
-                lastwasleft = false;
                 diff = 360 - mean;
                 right = (int) ((255 - Pscale*diff) * slowing);
                 left = (int) (255 * slowing);
             } else if (mean > 360) {
                 lost = false;
-                lastwasleft = true;
                 diff = mean - 360;
                 right = (int) (255 * slowing);
                 left = (int) ((255 - Pscale*diff) * slowing);
-            } else {    // we have 360 - maybe keep the last values??
-                if (!lost) {
-                    textStatusCam.setText("LOST");
-                    textStatusCam.setTextColor(Color.RED);
-                    lost = true;
-                    left = left / 2;
-                    right = right / 2;
+            } else {
+                if (found) {
+                    lost = false;
+                    left = (int) (255 * slowing);
+                    right = (int) (255 * slowing);
+                } else {
+                    if (!lost) {
+                        lost = true;
+                        left *= 0.5;
+                        right *= 0.5;
+                    }
                 }
-//                if (lastwasleft) {
-//                    left = 0;
-//                    right = (int) (255 * slowing * 0.5);
-//                }
-//                else {
-//                    left = (int) (255 * slowing * 0.5);
-//                    right = 0;
-//                }
+
             }
             if (left < 0)
                 left = 0;
@@ -324,6 +339,13 @@ public class CameraPIC extends Activity implements Camera.PreviewCallback {
         outmsg[1] = (byte) left;
         outmsg[2] = (byte) right;
         textStatusPWM.setText(PWMstatus + outmsg[0] + " : " + left + " : " + right);
+        textPixmin.setText("Min: " + pixmin);
+        textPixmax.setText("Max: " + pixmax);
+        textPixthresh.setText("Limit: " + pixthresh);
+        textPixamean.setText("aCOM " + adaptmean);
+
+
+
 
         if (serialReady) {
             try {
@@ -354,6 +376,9 @@ public class CameraPIC extends Activity implements Camera.PreviewCallback {
 
             parameters = camera.getParameters();
             previewSize = parameters.getPreviewSize();
+            parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
+            //parameters.setExposureCompensation(-2);
+            camera.setParameters(parameters);
 
         } catch (Exception e) {
             Log.e("Camera", "Error initializing camera. " + e);
@@ -369,7 +394,14 @@ public class CameraPIC extends Activity implements Camera.PreviewCallback {
     int value;
     int findSum;
     int findNum;
+    boolean found;
     int mean;
+    int pixmin;
+    int pixmax;
+    int pixthresh;
+    double pixthreshratio = 0.4;
+    int adaptmean;
+    boolean useAdaptive = false;
 
 
 
@@ -389,26 +421,59 @@ public class CameraPIC extends Activity implements Camera.PreviewCallback {
         value = 0;
         findSum = 0;
         findNum = 0;
-
+        pixmin = 255;
+        pixmax = 0;
 
         //look at a chunk of 5 rows, every other, to eliminate noise in a single line
         for (int jj = 0; jj < 10; jj += 2) {
             //go across the row and tally up the location of all dark pixels
             for (int ii = 0; ii < previewSize.height; ii++) {
                 value = grpx[(ii * previewSize.width) + linePos + jj];
+                if (value < pixmin)
+                    pixmin = value;
+                if (value > pixmax)
+                    pixmax = value;
+
+                //adaptive threshold here (make another pair of for loops)
                 if (value < threshold) {
                     findSum += ii;
                     findNum++;
                 }
             }
         }
-
-        //now take the average of the dark pixel locations to get the line center
         mean = previewSize.height / 2;
-        if (findNum > 0)
+        found = false;
+        if (findNum > 0) {
             mean = findSum / findNum;
+            found = true;
+        }
+
 
         textLine1Value.setText("" + mean);
+
+        value = 0;
+        findSum = 0;
+        findNum = 0;
+
+        //calculations for adaptive pixel thresholding
+        pixthresh = (int) (pixthreshratio * (pixmax - pixmin) + pixmin);
+        for (int jj = 0; jj < 10; jj += 2) {
+            //go across the row and tally up the location of all dark pixels
+            for (int ii = 0; ii < previewSize.height; ii++) {
+                value = grpx[(ii * previewSize.width) + linePos + jj];
+
+                if (value < pixthresh) {
+                    findSum += ii;
+                    findNum++;
+                }
+            }
+        }
+        adaptmean = previewSize.height / 2;
+        if (findNum > 0 && (pixmax - pixmin) > 50)
+            adaptmean = findSum / findNum;
+
+        //now take the average of the dark pixel locations to get the line center
+
 
         updateRobot();
 
